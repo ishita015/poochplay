@@ -1,0 +1,100 @@
+<!-- User Pet View Start -->
+<div class="clearfix outer-strip">
+        <div class="inner-strip relative">
+            <p class="nav_heading"> user / <a [routerLink] = "['/users/user-list/']" > user-list </a> / <a [routerLink] = "['/users/user-list/',user_id]"> user-detail </a> / <a [routerLink] = "['/user-pet/user-pet-list/',user_id]"> pet-list </a></p>
+        </div>
+</div>
+<div class="card p-3 relative">
+    <div class="image-loader" *ngIf="imageLoader" style="top:14%">
+            <img src="assets/img/loading.gif" />
+
+        </div>
+
+<div class="row">
+<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+    <div class="table_header mb-3">
+        <div class="row">
+            <aside class="col-md-6">
+        <h2 class="table_title user_pet_title">User Pet List</h2>
+        </aside>
+        <aside class="col-md-6 text-right right_button">
+            <a class="btn btn-primary btn-sm text-center" [routerLink]="['/users/user-list', user_id]"><i class=" alt-arrow fas fa-level-up-alt" ></i></a>
+        </aside>
+        <div class="col-md-12">
+            <hr>
+        </div>
+        <div>
+        <div class="row">
+            <div class="col-md-8 col-sm-6 col-xs-12">
+            </div> 
+        </div>
+    </div>
+    
+    <!-- Started  Table -->
+    <div class="table-responsive user_pet_list_table">
+        <table class="table user_pet_list_table1">
+            <thead>
+                    <tr>
+                            
+                            <th>Owner Name</th>
+                            <th>Age</th>
+                            <th>Owner Email</th>
+                            <th>Pet Image</th>
+                            <th></th>
+                            <th>Action</th>
+                     </tr>
+
+                   
+
+                    <tr>
+                            <style>
+                                    .input_search{
+                                        background:url('assets/img/search icon.png') #fff no-repeat;
+                                        background-position: 0% center;
+                                        padding-left: 24px;
+                                    }
+                            </style>   
+               
+                    <th><input type="text" class="form-control input_search user_place_holder2" name="owner_name" [(ngModel)]="filterArg.owner_name" placeholder="Search.."></th>
+                    <th><input type="text" class="form-control input_search user_place_holder1" name="age" [(ngModel)]="filterArg.age"  placeholder="Search.."></th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    </tr>
+            </thead>
+            <ng-container *ngIf ="userpetlist.petlist != undefined">
+                    <tr *ngFor="let user of userpetlist.petlist  |  paginate: {itemsPerPage: 5, currentPage:page, id: '1'}; let i = index">                    
+                    <td class="align-middle">{{user?.owner_name}}</td>
+                    <td class="align-middle">{{user?.age}}</td>
+                    <td class="align-middle">{{user?.owner_email}}</td>
+                    <td class="align-middle"><img src="{{user?.pet_img_path}}" height="60px">
+                        <img *ngIf="user?.pet_img_path ==''" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ0q3dUaEQdyU6qICpyirAJG8fvqMEdwdcDFSGOOxgQrK7q_8hH" height="60px">
+                    </td>
+                    <td></td>
+                    <td class="align-middle">
+                           <button type="button"  [routerLink] = "['/user-pet/user-pet-detail/', user_id, user.pet_id]" class="btn btn-primary align-middle ">Show Details</button>
+                    </td>
+                    
+            </tr>
+            </ng-container>
+            <tr *ngIf="userpetlist.petlist == undefined">
+                <td class="align-middle text-center" colspan= "6">{{userpetlist.message}}</td>
+            </tr>
+        </table>
+    <!-- End Table -->
+    
+    <!-- Add pagination Started-->
+          <pagination-controls class="pagination_list_body_condition" (pageChange)="page = $event" id="1"
+          maxSize="5"
+          directionLinks="true"
+          autoHide="true">
+         </pagination-controls>
+    <!-- Add pagination End-->
+
+    </div>
+</div>
+</div>
+</div>
+
+<!-- User Pet View End -->

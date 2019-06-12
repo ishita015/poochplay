@@ -1,0 +1,390 @@
+{
+  "rules": {
+    "currentVersion": {
+      ".read": true,
+      ".write": false
+    },
+    "index": {
+      "users": {
+        "$uid": {
+          ".write": "$uid === auth.uid || root.child('users').child($uid).child('uid').val() === auth.uid"
+        },
+      ".indexOn": ".value"
+    	}, 
+      ".read": true
+    }, 
+    "search": {
+         "request": {
+            "$recid": {
+               // I can only read records assigned to me
+               ".read": "auth.id != null",
+               // I can only write new records that don't exist yet
+               ".write": "!data.exists()",
+               ".validate": "newData.hasChildren(['index', 'type']) && (newData.hasChild('terms') || newData.hasChild('q') || newData.hasChild('query') || newData.hasChild('body'))",
+               "index": {
+                  // accepts arrays or strings
+                  ".validate": "(newData.isString() && newData.val().length < 1000) || newData.hasChildren()",
+                  "$child": {
+                     ".validate": "newData.isString() && newData.val().length < 1000"
+                  }
+               },
+               "type": {
+                  // accepts arrays or strings
+                  ".validate": "(newData.isString() && newData.val().length < 1000) || newData.hasChildren()",
+                  "$child": {
+                     ".validate": "newData.isString() && newData.val().length < 1000"
+                  }
+               },
+               "query": {
+                  // lucene formatted string, such as "title:search_term" or a `body` attribute
+                  // see https://www.elastic.co/guide/en/elasticsearch/guide/current/query-dsl-intro.html
+                  ".validate": "newData.isString() || newData.hasChildren()"
+               },
+               "terms": {
+                  // The `body` object of an ES search, such as { size: 25, from: 0, query: "*foo*" }, see
+                  // https://www.elastic.co/guide/en/elasticsearch/guide/current/query-dsl-intro.html
+                  ".validate": "newData.hasChildren()"
+               },
+               "body": {
+                  // The `body` object of an ES search, such as { size: 25, from: 0, query: "*foo*" }, see
+                  // https://www.elastic.co/guide/en/elasticsearch/guide/current/query-dsl-intro.html
+                  ".validate": "newData.hasChildren()"
+               },
+               "q": {
+                  // lucene formatted 'lite' search string, such as "*foo*" or "+name:(mary john) +date:>2014-09-10", see
+                  // https://www.elastic.co/guide/en/elasticsearch/guide/current/search-lite.html
+                  ".validate": "newData.isString()"
+               },
+               "size": {
+                  ".validate": "newData.isNumber() && newData.val() >= 0"
+               },
+               "from": {
+                 ".validate": "newData.isNumber() && newData.val() >= 0"
+               },
+               "$other": {
+                  ".validate": false
+               }
+            }
+         },
+         "response": {
+           ".indexOn": "timestamp",
+            "$recid": {
+              ".read": "true",
+              ".write": "!newData.exists()"
+            }
+         }
+      },       
+    "chat": {
+      "conversation": {
+      	".read": "auth != null",
+      	".write": "auth != null",
+        "$conId": {
+      		".validate": "newData.hasChildren(['date', 'users',])",
+        	".indexOn": "date",
+        },
+      },
+      "groups": {
+      	".read": "auth != null",
+      	".write": "auth != null",
+      },
+      "messages": {
+        "$conId": {
+          "$messId": {
+      			".validate": "newData.hasChildren(['type', 'date', 'author'])",
+            "text": {
+            	".validate": "(newData.isString() && newData.val().length > 0)",
+            },
+          },
+      			".read": "auth != null",
+      			".write": "auth != null",
+        },
+      },
+      "one-to-one": {
+      	".read": "auth != null",
+      	".write": "auth != null",
+      },
+    },
+    "courses": {
+    	".read": "auth != null",
+    },
+    "db-update-progress": {
+      ".read": "auth != null",
+      ".write": "auth != null",
+    },  
+    "posts": {
+      "$postId": {
+        "likes": {
+          "$likerId": {
+            ".write": "auth.uid == $likerId"
+          },
+          ".read": true
+        },
+        "comments": {
+          "$commentId": {
+            ".write": "auth.uid != null", 
+            ".validate": "newData.hasChildren(['author', 'date', 'text'])",
+            "text": {
+              ".validate": "(newData.isString() && newData.val().length > 0)",
+            },
+          },
+          ".read": true
+        },
+      }
+    },
+    "users": {
+      "$uid": {
+   			".validate": "newData.hasChildren(['type', 'username'])",
+        ".read": "auth != null",
+        ".write": "$uid === auth.uid || root.child('users').child($uid).child('uid').val() === auth.uid || root.child('users').child(auth.uid).child('type').val() === 3 || (root.child('users').child($uid).child('uid').val() === null && newData.hasChildren(['uid', ]))",
+        "username": {
+         ".validate": "(newData.isString() && newData.val().length > 2)",
+        },
+      },
+      ".indexOn": ["username", "type", "updatedAt"],
+    	".read": "auth != null",
+    },
+    "user-notifications": {
+      "$uid": {
+      	".read": "auth.uid == $uid",
+        "count": {
+          ".write": "auth.uid == $uid"
+        },
+      }
+    },
+    "users-posts": {
+      "$uid": {
+        ".read": "auth != null",
+        ".write": "$uid === auth.uid || root.child('users').child($uid).child('uid').val() === auth.uid",
+        "$postId": {
+        	".validate": "newData.hasChildren(['author', 'date']) && (newData.hasChild('photo') || newData.hasChild('text') || newData.hasChild('video') || newData.hasChild('shared'))",
+        	"text": {
+            ".validate": "(newData.isString() && newData.val().length > 0)",
+          },
+        }
+      }
+    },
+    "user-followings": {
+      "$uid": {
+        "count": {
+      		".read": "auth != null",
+        },
+        "followings": {
+      		".read": "auth != null",
+      		".write": "$uid == auth.uid"
+        }
+      }
+    },
+    "user-followers": {
+      "$uid": {
+        "count": {
+      		".read": "auth != null",
+        },
+        "followers": {
+      		".read": "auth != null",
+          "$followerUid": {
+      			".write": "$followerUid == auth.uid"
+          }
+        }
+      }
+    },
+    "user-scorecards": {
+      "$uid": {
+      	".read": "auth.uid == $uid",
+      	".write": "auth.uid == $uid",
+      }
+    },
+    "user-push": {
+      "$uid": {
+        "disabled": {
+      		".read": "auth.uid == $uid",
+        },
+      	".write": "auth.uid == $uid",
+      }
+    },
+    "user-push-settings": {
+      "$uid": {
+      	".read": "auth.uid == $uid",
+      	".write": "auth.uid == $uid",
+      }
+    },
+    "user-tournaments": {
+      "$uid": {
+      	".read": "auth.uid == $uid",
+        ".write": true,
+          //auth.id klubu to nie jest jego idik...
+      	// ".write": "auth.uid == $uid || root.child('users').child(auth.uid).child('type').val() === 3 ||  root.child('users').child(auth.uid).child('type').val() === 1",
+      }
+    },
+    "users-statistics": {
+      "$uid": {
+      	".read": "auth != null",
+      	".write": "auth.uid == $uid",
+      	".indexOn": ["date", "order"],
+      },
+    },
+    "user-archive": {
+      "$uid": {
+        ".read": "$uid == auth.uid",
+        ".write": "$uid == auth.uid"
+      }
+    },
+    "users-payments": {
+      "$uid": {
+        ".read": "auth.uid != null",
+        ".write": "auth.uid != null"
+      }
+    },  
+    "timelines": {
+      "$uid": {
+      	".indexOn": ".value",
+        ".read": "$uid == auth.uid",
+        ".write": false,
+      },
+    },
+    "scorecards": {
+      "$scorecardId": {
+    		".read": "auth != null",
+    		".write": "auth != null",
+        ".validate": "newData.hasChildren(['cid', 'course', 'date', 'enterStats', 'handicaps', 'holesCount', 'holesPart', 'name', 'players', 'startingHole', 'tee', 'type', 'uid'])",
+        "name": {
+          ".validate": "(newData.isString() && newData.val().length > 2)",
+        },
+        "manual_players": {
+          "$manualId": {
+            ".validate": "newData.hasChildren(['handicap', 'name'])",
+          }
+        },
+        "leaderboard": {
+          "$uid": {
+            "$playerId": {
+              ".validate": "newData.hasChildren(['finished'])",
+            }
+          }
+        }
+      }
+    },
+    "scorecards-course": {
+      ".read": "auth != null",
+      ".write": "auth != null",
+    },
+    "scorecards-results": {
+      "$scorecardId": {
+      	".indexOn": "date",
+    		".read": "auth != null",
+    		".write": "auth != null",
+        "$resultId": {
+        	".validate": "newData.hasChildren(['brutto', 'date', 'netto', 'scores', 'statisticKey',])",
+        }
+      },
+    },
+    "reports": {
+      "$uid": {
+        "$reportId": {
+        	".validate": "newData.hasChildren(['reporterUid', 'date', 'text',])",
+        	"text": {
+          	".validate": "(newData.isString() && newData.val().length > 0)",
+        	},
+          ".read": true
+        	// ".read": "root.child('users').child(auth.uid).child('type').val() === 3",
+        },
+        ".read": true,
+        // ".read": "root.child('users').child(auth.uid).child('type').val() === 3",
+    		".write": "auth != null",
+      }
+    },
+    "block": {
+      "user": {
+        "$uid": {
+          ".read": "auth != null",
+          ".write": "auth.uid == $uid",
+          ".indexOn": "date",
+        },
+      }
+    },
+    "tournaments": {
+      "$tournamentId": {
+        ".validate": "newData.hasChildren(['cid', 'course', 'startDate', 'endDate', 'holesCount', 'holesPart', 'eventName', 'tee', 'type', 'uid', 'info', 'image'])",
+        "eventName": {
+          ".validate": "(newData.isString() && newData.val().length > 2)",
+        },
+        "leaderboard": {
+          "$uid": {
+            "$playerId": {
+              ".validate": "newData.hasChildren(['finished'])",
+            }
+          }
+        }
+      },
+    	".read": "auth != null",
+    	".write": "auth != null",
+      ".indexOn": ["startDate","endDate"],
+    },
+    "tournaments-course": {
+      ".read": "auth != null",
+      ".write": "auth != null",
+    },  
+    "tournament-followings": {
+      "$tournamentId": {
+        "followings": {
+      		".read": "auth != null",
+          "$followerUid": {
+      			".write": "$followerUid == auth.uid"
+          }
+        }
+      }
+    },
+    "tournaments-results": {
+      "$tournamentId": {
+        "$uid": {
+      		".indexOn": "date",
+          "$resultId": {
+            ".validate": "newData.hasChildren(['brutto', 'date', 'netto', 'scores', 'statisticKey',])",
+          },
+      		".write": "auth.uid == $uid",
+        }
+      },
+      ".read": "auth != null",
+    },
+    "tournament-players": {
+      "$tournamentId": {
+      	".indexOn": "date",
+        "$uid": {
+          ".validate": "newData.hasChildren(['enterStatus', 'date', 'handicaps', 'players', 'startHole',])",
+          ".write": "auth.uid == $uid",
+        }
+      },
+      ".read": "auth != null",
+    },
+    "tournaments-active": {
+      ".indexOn": ".value",
+      ".read": false,
+      ".write": false
+    },
+    "server-process":  {
+      "hook": {
+        ".write": true,
+      },
+    	"cron": {
+    		".write": false
+      },
+      "comments": {
+    		".write": "auth != null"
+      },
+      "post-admin": {
+    		".write": "auth != null"
+      },
+      "post-to-add": {
+    		".write": "auth != null"
+      },
+      "post-to-remove": {
+    		".write": "auth != null"
+      },
+      "likes": {
+    		".write": "auth != null"
+      },
+        "add-tournament": {
+          ".write": "auth != null"
+        }
+    }
+  }
+}

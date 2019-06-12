@@ -1,0 +1,11 @@
+@import "../../node_modules/bootstrap/scss/variables";
+
+$icon-font-path: "../node_modules/bootstrap-sass/assets/fonts/bootstrap/";
+$fa-font-path: "../node_modules/font-awesome/fonts";
+
+$link-color: $green;
+$link-hover-color: darken($link-color, 15%);
+$pagination-color: $link-color;
+$pagination-hover-color: $link-hover-color;
+$pagination-active-bg: $green;
+$pagination-active-border: $green;

@@ -1,0 +1,128 @@
+<style>
+      .tab-content{
+            border: none;
+      }
+</style>
+<!--Add Breeds Start -->
+<div class="card p-3">
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div class="table_header mb-3">
+                    <h2 class="table_title">Users Detail</h2>
+                    <button type="button"  [routerLink] = "['/user-pet/user-pet-list',userview.user_id]" class="btn btn-primary pet_button">Pet List</button>
+                    <hr>
+                    <div class="row">
+                        <div class="col-md-4 col-sm-6 col-xs-12">
+                            <div class="t_header_right">
+                          
+                            </div> 
+                        </div> 
+                    </div>
+                </div>
+        <div class="row">
+                      <!-- User Summary -->
+                      <div class="col-12 col-md-4 widget-holder widget-full-content">
+                          <div class="widget-bg shadow-lg">
+                              <div class="widget-body clearfix">
+                                  <div class="widget-user-profile">
+                                      <figure class="profile-wall-img">
+                                            <img src="assets/img/cover2.jpg">
+                                              
+                                      </figure>
+                                      <div class="profile-body">
+                                          <figure class="profile-user-avatar thumb-md" height="100px">
+                                                      <img [src]='sanitizer.bypassSecurityTrustResourceUrl(userview.profile_pic)'>
+                                                      <img *ngIf="userview.profile_pic ==''" src="https://cdn.evbuc.com/eventlogos/91884425/imagenotavailablegrid.jpg">    
+                                          </figure>
+                                          <h6 class="h3 profile-user-name profile_view" >Profile View</h6><small class="profile-user-address"></small>
+                                      </div>
+                                    </div>
+                                  <!-- /.widget-user-profile -->
+                              </div>
+                              <!-- /.widget-body -->
+                          </div>
+                          <!-- /.widget-bg -->
+                      </div>
+                      <!-- /.widget-holder -->
+                      
+                      <!-- Tabs Content -->
+                      <div class="col-12 col-md-8 mr-b-30">
+                        <div class="tab-content">
+                              
+                              <!-- /.tab-pane -->
+                              <div role="tabpanel" class="tab-pane active" id="profile-tab-bordered-1">
+                                  <div class="contact-details-profile">
+                                      <h5 class="mr-b-20 personal_profile">Personal Profile</h5>
+                                      <div class="row">
+                                          <div class="col-md-6">
+                                              <div class="contact-details-cell"><small class="heading-font-family fw-500">First Name</small>  <span>{{userview.first_name}}</span>
+                                              </div>
+                                              <!-- /.contact-details-cell -->
+                                          </div>
+                                          <!-- /.col-md-6 -->
+                                          <div class="col-md-6">
+                                              <div class="contact-details-cell"><small class="heading-font-family fw-500">Last Name</small>  <span>{{userview.last_name}}</span>
+                                              </div>
+                                              <!-- /.contact-details-cell -->
+                                          </div>
+                                          <!-- /.col-md-6 -->
+                                          <div class="col-md-6">
+                                              <div class="contact-details-cell"><small class="heading-font-family fw-500">Email</small>  <span>{{userview.email}}</span>
+                                              </div>
+                                              <!-- /.contact-details-cell -->
+                                          </div>
+                                          <!-- /.col-md-6 -->
+                                          <div class="col-md-6">
+                                              <div class="contact-details-cell"><small class="heading-font-family fw-500">Mobile No</small>  <span>{{userview.mobileno}}</span>
+                                              </div>
+                                              <!-- /.contact-details-cell -->
+                                          </div>
+                                          <!-- /.col-md-6 -->
+                                          <!-- <div class="col-md-6">
+                                                      <div class="contact-details-cell"><small class="heading-font-family fw-500">Mobile No</small>  <span>{{userview.mobileno}}</span>
+                                                      </div> -->
+                                                      <!-- /.contact-details-cell -->
+                                          <!-- </div> -->
+                                          <div class="col-md-6">
+                                                      <div class="contact-details-cell"><small class="heading-font-family fw-500">City</small>  <span>{{userview.city}}</span>
+                                                      </div>
+                                                      <!-- /.contact-details-cell -->
+                                          </div>
+                                          <div class="col-md-6">
+                                                      <div class="contact-details-cell"><small class="heading-font-family fw-500">State</small>  <span>{{userview.state}}</span>
+                                                      </div>
+                                                      <!-- /.contact-details-cell -->
+                                          </div>
+                                          <div class="col-md-6">
+                                                      <div class="contact-details-cell"><small class="heading-font-family fw-500">Country</small>  <span>{{userview.country}}</span>
+                                                      </div>
+                                                      <!-- /.contact-details-cell -->
+                                          </div>
+                                          <div class="col-md-6">
+                                                      <div class="contact-details-cell"><small class="heading-font-family fw-500">Notification</small>  <span>{{userview.notification}}</span>
+                                                      </div>
+                                                      <!-- /.contact-details-cell -->
+                                          </div>
+                                          <div class="col-md-6">
+                                                      <div class="contact-details-cell"><small class="heading-font-family fw-500">Door</small>  <span>{{userview.door}}</span>
+                                                      </div>
+                                                      <!-- /.contact-details-cell -->
+                                          </div>
+                                          <div class="col-md-6">
+                                                      <div class="contact-details-cell"><small class="heading-font-family fw-500">Postcode</small>  <span>{{userview.postcode}}</span>
+                                                      </div>
+                                                      <!-- /.contact-details-cell -->
+                                          </div>
+                                      </div>
+                                     
+                                  </div>
+                                 
+                              </div>
+            
+                          </div>
+            
+                      </div>
+                      
+                  </div>
+
+              <!-- </div> -->

@@ -1,0 +1,110 @@
+<!--List Breeds Category Start -->
+<div class="backdrop" [ngStyle]="{'display':display}"></div>
+    <div class="modal" id="test" tabindex="-1" aria-hidden="true" role="dialog"  [ngStyle]="{'display':display}">
+        <div class="modal-dialog  modal-dialog-centered modal-sm">
+            <div class="modal-content dialog">
+                <div class="modal-header popup1">
+                        <p class="delete_text">Are you sure you want to delete</p>
+                </div>
+                
+                <div class="modal-footer popup2">
+                    <button type="button" class="btn btn-default close_btn" (click)=" hidePopup()">Close</button>
+                    <button type="button" class="btn btn-default ok_btn" (click)="onCloseHandled(Id)" >Ok</button>
+
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal! -->
+    <div class="backdrop" [ngStyle]="{'display':display2}"></div>
+    <div class="modal" id="test" tabindex="-1" aria-hidden="true" role="dialog"  [ngStyle]="{'display':display2}">
+        <div class="modal-dialog  modal-dialog-centered modal-sm">
+            <div class="modal-content dialog">
+                <div class="modal-header popup1">
+                   
+                        <p  class="delete_text">{{breedcategory.message}}</p>
+                </div>
+                
+                <div class="modal-footer popup2">
+                    <button type="button" class="btn btn-default conform_delete" (click)="hidePopup1()" >Ok</button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal! -->
+
+
+<div class="card p-3">
+        <div class="image-loader" *ngIf="imageLoader" style="top:14%">
+                <img src="assets/img/loading.gif" />
+            </div>
+    <div class="row">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <div class="table_header mb-3">
+                <div class="row">
+                    <div class="col-md-6">
+                      <h2 class="table_title">List Breed Category</h2>
+                    </div>
+               
+                 <div class="col-md-6">
+                     <button type="button" [routerLink]="['/breed/add-breed-category']"  (click) = "onSubmit()" class="btn btn-default add_btn "><i class="fas fa-plus plus_icon"></i>Add</button>
+                 </div>    
+               </div>
+                 <hr>
+                <div class="row">
+                    <div class="col-md-8 col-sm-6 col-xs-12">
+                       
+                    </div> 
+                 
+                </div>
+            </div>
+            <div class="table-responsive">
+                <table class="table">
+                    <thead>
+                           
+                            <tr>
+                                    <th>Breed Category Id</th>
+                                    <th>Breed Name</th>
+                                    <th>Status</th>
+                                    <th>Action</th>
+                            </tr>
+                            <tr>
+                                    <style>
+                                            .input_search{
+                                                background:url('assets/img/search icon.png') #fff no-repeat;
+                                                background-position: 0% center;
+                                                padding-left: 24px;
+                                            }
+                                            </style>
+                            <th><input type="text" class="form-control input_search breed_place_holder1" name="lifestyle_id" [(ngModel)]="filterArg.breed_category_id"  placeholder="Search.."></th>
+                            <th><input type="text" class="form-control input_search breed_place_holder2" name="breed_name" [(ngModel)]="filterArg.breed_name" placeholder="Search.."></th>
+                            <th></th>
+                            <th></th>
+                            </tr>
+                    </thead>
+                    <tbody>
+                    <tr *ngFor="let breed of breeds.list | listbreedcategoryFilter:filterArg | paginate: {itemsPerPage: 4, currentPage:page, id: '1'}; let i = index">
+                        
+                            <td class="align-middle">{{breed?.breed_category_id}}</td>
+                            <td class="align-middle">{{breed?.breed_name}}</td>
+                            <td class="align-middle"><span *ngIf="breed.status==101; else elseBlock">Active</span>
+                            <ng-template #elseBlock>Inactive </ng-template></td>
+                            <td class="align-middle">
+                                <a [routerLink] = "['/breed/list-breed-category/',  breed.breed_category_id]"><i class="fas fa-pencil-alt" height="15px" hspace="9"></i></a>
+                                <a (click) = "deletetag(breed.breed_category_id)"><i class="far fa-trash-alt deleticon" height="15px" hspace="9"></i></a>
+                            </td>
+                    </tr>
+                    </tbody>
+                </table>
+                <!--Add Pagination-->
+                <pagination-controls class="pagination_list_breed_category" (pageChange)="page = $event" id="1"
+                maxSize="5"
+                directionLinks="true"
+                autoHide="true">
+          </pagination-controls>
+            </div>
+        </div>
+
+
+    </div>
+  </div>
+
+  <!--List Breeds Category End-->

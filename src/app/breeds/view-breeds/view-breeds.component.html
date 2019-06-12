@@ -1,0 +1,238 @@
+
+<!--View Breeds Start -->
+
+<div class="backdrop" [ngStyle]="{'display':display}"></div>
+    <div class="modal" id="test" tabindex="-1" aria-hidden="true" role="dialog"  [ngStyle]="{'display':display}">
+        <div class="modal-dialog  modal-dialog-centered modal-sm">
+            <div class="modal-content dialog_box">
+                <div class="modal-header popup1">
+                        <p class="delete_text">Are you sure you want to delete ?</p>
+                       
+                </div>
+               
+                <div class="modal-footer popup2">
+                    <button type="button" class="btn btn-default close_btn" (click)=" hidePopup()">Close</button>
+                    <button type="button" class="btn btn-default ok_btn" (click)="onCloseHandled(Id)" >Ok</button>
+
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal! -->
+    <div class="backdrop" [ngStyle]="{'display':display2}"></div>
+    <div class="modal" id="test" tabindex="-1" aria-hidden="true" role="dialog"  [ngStyle]="{'display':display2}">
+        <div class="modal-dialog  modal-dialog-centered modal-sm">
+            <div class="modal-content dialog">
+                <div class="modal-header popup1">
+                        <p class="delete_text">{{breeds.message}}</p>
+                </div>
+                
+                <div class="modal-footer popup2">
+                    <button type="button" class="btn btn-default conform_delete" (click)="hidePopup()" >Ok</button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal! -->
+
+    <div class="backdrop" [ngStyle]="{'display':display3}"></div>
+    <div class="modal" id="test" tabindex="-1" aria-hidden="true" role="dialog"  [ngStyle]="{'display':display3}">
+        <div class="modal-dialog  modal-dialog-centered modal-sm">
+            <div class="modal-content dialog">
+                <div class="modal-header popup1">
+                        <p class="delete_message">{{deletebreeds.message}}</p>
+                </div>
+                
+                <div class="modal-footer popup2">
+                    <button type="button" class="btn btn-default conform_delete " (click)="hidePopup1()" >Ok</button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal! -->
+
+<div class="card p-3 relative">
+        <div class="image-loader" *ngIf="imageLoader" style="top:14%">
+                <img src="assets/img/loading.gif" />
+            </div>
+           
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div class="table_header mb-3">
+                    <h2 class="table_title">View Breeds</h2>
+                    <hr>
+                    <div class="row">
+                        <div class="col-md-8 col-sm-6 col-xs-12">
+                            
+                        </div> 
+                        <div class="col-md-4 col-sm-6 col-xs-12">
+                            <div class="t_header_right">
+                                
+                            </div> 
+                        </div> 
+                    </div>
+                </div>
+            <div *ngIf="isHide=='false'">
+                    <span> <input type="text" class="form-control input_search user_place_holders" name="user_id" [(ngModel)]="search.searchData"  placeholder="Search....">
+                      <button type="button" class="btn btn-default go_btn "  (click)="search(search)" >GO</button></span>
+                         <div class="table-responsive">
+                          <table class="table user_list_2">
+                           <thead>
+                            <tr>
+                                <th>Breed Id</th>
+                                <th>Breed Name</th>
+                                <th class="text-center">Image</th>
+                                <th >Breed Categories</th>
+                                <th >Action</th>
+                            </tr>
+                            <!-- <tr>
+                                    <style>
+                                            .input_search{
+                                                background:url('assets/img/search icon.png') #fff no-repeat;
+                                                background-position: 0% center;
+                                                padding-left: 24px;
+                                            }
+                                    </style>
+                                <th><input type="text" class="form-control input_search view_place_holder1" name="breed_id" [(ngModel)]="filterArg.breed_id" placeholder="Search.."  ></th>
+                                <th><input type="text" class="form-control input_search view_place_holder2" name="breed_name" [(ngModel)]="filterArg.breed_name" placeholder="Search.." ></th>
+                       
+                                <th></th>
+                                <th></th>
+                                <th ></th>
+                                
+                            </tr> -->
+                                
+                          </thead>
+                        <tbody >
+                         <tr *ngFor="let breed of breeds.response | listbreedFilter:filterArg ">
+                                
+                                <td class="align-middle">{{breed?.breed_id}}</td>
+                                <td class="align-middle">{{breed?.breed_name }} </td>
+                             
+                                <td class="align-middle text-center" ><img src="{{breed?.image_path}}" height="60px">
+                                    <img *ngIf="breed?.image_path ==''" src="https://cdn.evbuc.com/eventlogos/91884425/imagenotavailablegrid.jpg" height="60px">
+                                </td>
+                                
+                                <td class="align-middle">{{breed.breed_cat}} </td>
+                                
+                                <td class="align-middle">
+                                        <a [routerLink] = "['/breed/view-breeds/', breed.breed_id]"><i class="fas fa-pencil-alt" height="15px" hspace="9"></i></a>
+                                        <a data-toggle="modal"  (click) = "deletetag(breed.breed_id)"><i class="far fa-trash-alt deleticon" height="15px" hspace="9"></i></a>
+                                
+                                </td>
+                                
+     
+                        </tr>
+                       
+                    </tbody>
+                    </table>
+                    <div class="row pagination-block">
+                        <aside class="col-sm-6">
+                        <h5 class="page-count">
+                            {{ offset + 1 }} - {{ offset + limit }} item in {{ count }} Items
+                        </h5>
+                        </aside>
+                        <style>
+                                ul.with-dot li:nth-child(2), ul.with-dot li:nth-last-child(2){
+                                    border:none;
+                                    pointer-events: none;
+                                    cursor: default;
+                                }
+                                .ul-pagination li{width:36px}
+                        </style>
+                        <aside class="col-sm-6">
+                            <ul class="ul-pagination"  [ngClass]=" dotPage==true ? 'with-dot':'no-dot'">
+                                <li *ngFor="let page of pagination" (click)="setOffset(page)"
+                                [ngClass]="current_page == page ? 'li-active' : '' ">{{ page }}</li>
+                            </ul>
+                        </aside>
+                    </div>
+               </div>
+            </div>
+
+
+
+              <!-- Add New Table 2 -->
+              <div  *ngIf="isShow=='true'">
+                    <span> <input type="text" class="form-control input_search user_place_holders" name="user_id" [(ngModel)]="search.searchData"  placeholder="Search....">
+                      <button type="button" class="btn btn-default go_btn"  (click)="search(search)" >GO</button></span>
+                    <div class="table-responsive user_list_2">
+                        <table class="table table_2">
+                            <thead>
+                                <tr>
+                                    <th>Breed Id</th>
+                                    <th>Breed Name</th>
+                                    <th class="text-center">Image</th>
+                                    <th >Breed Categories</th>
+                                    <th >Action</th>
+                                </tr>
+                                <tr>
+                                        <style>
+                                                .input_search{
+                                                    background:url('assets/img/search icon.png') #fff no-repeat;
+                                                    background-position: 0% center;
+                                                    padding-left: 24px;
+                                                }
+                                        </style>
+                                    <th><input type="text" class="form-control input_search view_place_holder1" name="breed_id" [(ngModel)]="filterArg.breed_id" placeholder="Search.."  ></th>
+                                    <th><input type="text" class="form-control input_search view_place_holder2" name="breed_name" [(ngModel)]="filterArg.breed_name" placeholder="Search.." ></th>
+                           
+                                    <th></th>
+                                    <th></th>
+                                    <th ></th>
+                                    
+                                </tr>
+                                    
+                            </thead>
+                            <tbody >
+                             <tr *ngFor="let breed of breeds.response | listbreedFilter:filterArg ">
+                                    
+                                    <td class="align-middle">{{breed?.breed_id}}</td>
+                                    <td class="align-middle">{{breed?.breed_name }} </td>
+                                 
+                                    <td class="align-middle text-center" ><img src="{{breed?.image_path}}" height="60px">
+                                        <img *ngIf="breed?.image_path ==''" src="https://cdn.evbuc.com/eventlogos/91884425/imagenotavailablegrid.jpg" height="60px">
+                                    </td>
+                                    
+                                    <td class="align-middle">{{breed.breed_cat}} </td>
+                                    
+                                    <td class="align-middle">
+                                            <a [routerLink] = "['/breed/view-breeds/', breed.breed_id]"><i class="fas fa-pencil-alt" height="15px" hspace="9"></i></a>
+                                            <a data-toggle="modal"  (click) = "deletetag(breed.breed_id)"><i class="far fa-trash-alt deleticon" height="15px" hspace="9"></i></a>
+                                    
+                                    </td>
+                                    
+         
+                            </tr>
+                           
+                        </tbody>
+                        </table>
+                        <div class="row pagination-block">
+                            <aside class="col-sm-6">
+                            <h5 class="page-count">
+                                {{ offset + 1 }} - {{ offset + limit }} item in {{ count }} Items
+                            </h5>
+                            </aside>
+                            <style>
+                                    ul.with-dot li:nth-child(2), ul.with-dot li:nth-last-child(2){
+                                        border:none;
+                                        pointer-events: none;
+                                        cursor: default;
+                                    }
+                                    .ul-pagination li{width:36px}
+                            </style>
+                            <aside class="col-sm-6">
+                                <ul class="ul-pagination"  [ngClass]=" dotPage==true ? 'with-dot':'no-dot'">
+                                    <li *ngFor="let page of pagination" (click)="setOffset(page)"
+                                    [ngClass]="current_page == page ? 'li-active' : '' ">{{ page }}</li>
+                                </ul>
+                            </aside>
+                        </div>
+                   </div>
+                </div>
+    
+
+
+
+        </div>
+    </div>
+</div>
+    
+      <!-- View Breeds End -->

@@ -1,0 +1,67 @@
+<div class="backdrop" [ngStyle]="{'display':display2}"></div>
+<div class="modal" id="test" tabindex="-1" aria-hidden="true" role="dialog"  [ngStyle]="{'display':display2}">
+    <div class="modal-dialog  modal-dialog-centered modal-sm">
+        <div class="modal-content dialog">
+            <div class="modal-header popup1">
+                    <!-- <p>{{_Array1.message}}</p> -->
+            </div>
+            
+            <div class="modal-footer popup2">
+                <button type="button" [routerLink] = "['/pages/login/']" class="btn btn-default" (click)="hidePopup()" >Ok</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal! -->
+
+
+
+<section id="wrapper" class="login-register">
+    <div class="login-box login-sidebar">
+            <!-- <p *ngIf="isValidFormSubmitted && userForm.pristine" [ngClass] = "'success'">Form submitted successfully.</p> -->
+        <div class="white-box">
+        
+            <form class="form-horizontal form-material" id="loginform" [formGroup]="userForm" (ngSubmit) = "onSubmit(userForm)" novalidate>
+                <a href="javascript:void(0)" class="text-center db login_logo"><img src="assets/img/logopoochplay.png" alt="Home" /></a>
+                    <div class="form-group m-t-40" >
+                    <div class="col-xs-12">
+                            <input id="txtEmail" class="form-control" type="email" formControlName="email_id"  placeholder="Email Id" required>
+                            <div *ngIf="userForm.controls['email_id'].errors && ( !userForm.controls['email_id'].pristine || submitted ||userForm.controls['email_id'].touched )" class="error-msg">
+                            <div [hidden]="!userForm.controls['email_id'].errors.required">Email Is Required.</div>
+                            <!-- <div [hidden]="!userForm.controls['email_id'].errors.pattern"> Email Is Invalid</div> -->
+                            <div [hidden]="!userForm.controls['email_id'].errors.pattern">Invalid Email.</div>
+                        </div>
+                        
+                
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-xs-12">
+                        <input class="form-control" formControlName="password" type="password" placeholder="Password">
+                        <!-- <show-errors [control]="userForm.controls.password"></show-errors> -->
+                        <!-- <div class="form-control-feedback" *ngIf="formsService.validate(form, 'password')">Enter Valid Password</div> -->
+                        <div *ngIf="userForm.controls['password'].errors && ( !userForm.controls['password'].pristine || submitted ||userForm.controls['password'].touched )" class="error-msg">
+                            <div [hidden]="!userForm.controls['password'].errors.required">Password Is Required.</div>
+                        </div>
+                             <!-- <div *ngIf="userForm.controls.password.touched && !userForm.controls.password.valid" class="alert alert-danger">Password is required</div>
+                             </div> -->
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-md-12">
+                        <div class="checkbox checkbox-primary pull-left p-t-0">
+                            <!-- <input id="checkbox-signup" type="checkbox">
+                            <label for="checkbox-signup"> Remember me </label> -->
+                        </div>
+                         <!-- <a href="javascript:void(0)" id="to-recover" class="text-dark pull-right"><i class="fa fa-lock m-r-5"></i> Forgot pwd?</a>  -->
+                        </div>
+                     
+                    </div>
+                <div class="form-group text-center m-t-20">
+                    <div class="col-xs-12">
+                        <button class="btn btn-info btn-lg btn-block text-uppercase waves-effect waves-light" type="submit" value="Submit" >Log In</button>
+                    </div>
+                </div>
+            </form>
+            </div>
+    </div>
+</section>

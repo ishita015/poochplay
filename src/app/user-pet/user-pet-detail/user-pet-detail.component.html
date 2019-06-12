@@ -1,0 +1,537 @@
+<!-- User Pet Detail Start-->
+
+<div class="clearfix outer-strip">
+    <div class="inner-strip relative">
+        <p class="nav_heading"> user {{imageLoader}} /
+            <a [routerLink]="['/users/user-list/']"> user-list </a> /
+            <a [routerLink]="['/users/user-list/',user_id]"> user-detail </a> /
+            <a [routerLink]="['/user-pet/user-pet-list/',user_id]"> pet-list </a> / pet-detail</p>
+    </div>
+</div>
+<div class="card p-3 relative">
+    <div class="image-loader" *ngIf="imageLoader" style="top:44%">
+        <img src="assets/img/loading.gif" />
+    </div>
+    <div class="row">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <div class="table_header mb-3">
+
+                <div class="row">
+                    <aside class="col-md-6">
+                        <h2 class="table_title">User Pet Detail</h2>
+                    </aside>
+                    <aside class="col-md-6 text-right">
+                        <a class="btn btn-primary btn-sm text-center" [routerLink]="['/user-pet/user-pet-list', user_id]">
+                            <i class=" alt-arrow fas fa-level-up-alt"></i>
+                        </a>
+                    </aside>
+                    <div class="col-md-12">
+                        <hr>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-8 col-sm-6 col-xs-12">
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card p-3 relative container graph">
+                    
+                    <div class="row">
+
+                        <div class="col-md-11 mat_tab">
+                        
+                            <mat-tab-group (selectedTabChange)="clickme();">
+                                <mat-tab type="button" class="btn-group btn btn-primary" label="Pet Detail" data-toggle="tab">
+                                        <div>
+                                                <div class="row pet_det">
+                                                    
+                                                    <div class="col-md-4">
+                                                            
+                                                            <div class="card inner"  >
+                                                                    <span><img src="assets/img/balance.png" class="image_current_Weight"></span>
+                                                                    <h6 class="header_title">Current Weight</h6>
+                                                        <p class="title_data">{{petData?.current_weight}} kg</p>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-4">
+                                                            <div class="card inner">
+                                                                    <span><img src="assets/img/food.png" class="image_recommeneded_food"></span>
+                                                                    <h6 class="header_title">Recommended Food Intake</h6>
+                                                                    <p class="title_data">{{petData?.productcompany?.f_rec}} gm/day</p>
+                                                                    </div>
+                                                     </div>
+                                                     <div class="col-md-4">
+                                                            <div class="card inner">
+                                                                    <span><img src="assets/img/list.png" class="image_current_body"></span>
+                                                                    <h6 class="header_title">Current Body </h6>
+                                                                    <p class="title_data">{{petData?.productcompany?.score}}</p>
+                                                                    </div>
+                                                         </div>
+                                                 </div> 
+                                             </div> 
+                                    <table id="example" class="table">
+                                        <thead>
+                                        </thead>
+                                        <tbody>
+
+                                            <tr>
+                                                <td>Name :</td>
+                                                <td>{{petData?.name}}</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Age :</td>
+                                                <td class="align-middle">{{petData?.age}}</td>
+                                            </tr>
+                                            <!-- <tr>
+                                                <td>Location</td>
+                                                <td class="align-middle">{{petData?.location}}</td>
+                                            </tr> -->
+                                            <!-- <tr>
+                                                <td>country</td>
+                                                <td class="align-middle">{{petData?.country}}</td>
+                                            </tr> -->
+                                            <!-- <tr>
+                                                <td>postcode</td>
+                                                <td class="align-middle">{{petData?.postcode}}</td>
+                                            </tr> -->
+                                            <tr>
+                                                <td>Sex</td>
+                                                <td>{{petData?.sex}}</td>
+                                            </tr>
+                                            <!-- <tr>
+                                                <td>Fathers Breed</td>
+                                                <td class="align-middle">{{petData?.fathers_breed}}</td>
+                                            </tr> -->
+                                            <!-- <tr>
+                                                <td>Mothers Breed</td>
+                                                <td class="align-middle">{{petData?.mothers_breed}}</td>
+                                            </tr> -->
+                                            <tr>
+                                                <td>Adoption Date</td>
+                                                <!-- <td class="align-middle">{{petData?.adoption_date | date}}</td> -->
+                                                <td class="align-middle">{{petData?.adoption_date }}</td>
+                                            </tr>
+                                            <!-- <tr>
+                                                <td>Pet Path</td>
+                                                <td class="align-middle">{{petData?.pet_ins_path}}</td>
+                                            </tr> -->
+                                            <tr>
+                                                <td>Lifestyle</td>
+                                                <td class="align-middle">{{petData?.lifestyle}}</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Is Neutered</td>
+                                                <td class="align-middle"><span *ngIf="petData?.isNeutered==1; else elseBlock">Yes</span>
+                                                <ng-template #elseBlock>No</ng-template></td>
+                                                <!-- <td class="align-middle">{{petData?.isNeutered}}</td> -->
+                                            </tr>
+                                            <!-- <td class="align-middle"><span *ngIf="products.isAudited==101; else elseBlock">Active</span>
+                                                <ng-template #elseBlock>Inactive </ng-template></td> -->
+                                            <tr>
+                                                <td>Is Trained</td>
+                                                <td class="align-middle"><span *ngIf="petData?.isTrained==0; else elseBlock">No</span>
+                                                    <ng-template #elseBlock>Yes</ng-template></td>
+                                                <!-- <td class="align-middle">{{petData?.isTrained}}</td> -->
+                                            </tr>
+                                            <!-- <tr>
+                                                <td>Temparement Ok Dog</td>
+                                                <td class="align-middle"><span *ngIf="petData?.temparement_ok_dog==0; else elseBlock">No</span>
+                                                    <ng-template #elseBlock>Yes</ng-template></td> -->
+                                                <!-- <td class="align-middle">{{petData?.temparement_ok_dog}}</td> -->
+                                            <!-- </tr> -->
+                                            <!-- <tr>
+                                                <td>Temparement Ok Cat</td>
+                                                <td class="align-middle"><span *ngIf="petData?.temparement_ok_cat==0; else elseBlock">No</span>
+                                                    <ng-template #elseBlock>Yes</ng-template></td> -->
+                                                <!-- <td class="align-middle">{{petData?.temparement_ok_cat}}</td> -->
+                                            <!-- </tr> -->
+                                            <!-- <tr>
+                                                <td>Temparement Ok People</td>
+                                                <td class="align-middle"><span *ngIf="petData?.temparement_ok_people==0; else elseBlock">No</span>
+                                                    <ng-template #elseBlock>Yes</ng-template></td> -->
+                                                <!-- <td class="align-middle">{{petData?.temparement_ok_people}}</td> -->
+                                            <!-- </tr> -->
+                                            <!-- <tr>
+                                                <td>Temparement Ok Child</td>
+                                                <td class="align-middle"><span *ngIf="petData?.temparement_ok_child==0; else elseBlock">No</span>
+                                                    <ng-template #elseBlock>Yes</ng-template></td> -->
+                                                <!-- <td class="align-middle">{{petData?.temparement_ok_child}}</td> -->
+                                            <!-- </tr> -->
+                                            <!-- <tr>
+                                                <td>Is Swimmer</td>
+                                                <td class="align-middle"><span *ngIf="petData?.isSwimmer==0; else elseBlock">No</span>
+                                                    <ng-template #elseBlock>Yes</ng-template></td> -->
+                                                <!-- <td class="align-middle">{{petData?.isSwimmer}}</td> -->
+                                            <!-- </tr> -->
+                                            <!-- <tr>
+                                                <td>Allergies</td>
+                                                <td class="align-middle">{{petData?.allergies}}</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Medical Conditions</td>
+                                                <td class="align-middle">{{petData?.medical_conditions}}</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Medicines</td>
+                                                <td class="align-middle">{{petData?.medicines}}</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Likes</td>
+                                                <td class="align-middle">{{petData?.likes}}</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Dislikes</td>
+                                                <td class="align-middle">{{petData?.dislikes}}</td>
+                                            </tr> -->
+                                            <tr>
+                                                <td>Microchip Id</td>
+                                                <td class="align-middle">{{petData?.microchip_id}}</td>
+                                            </tr>
+                                            <!-- <tr *ngFor="let temperament_data of temperamentObj.response"> -->
+                                                <!-- <td>Temperament</td> -->
+                                                <!-- <td>{{temperament_data?.name}}</td>
+                                                <td>{{temperament_data?.image_path}}</td>
+                                                <td>{{temperament_data?.status}}</td>
+                                                <td>{{temperament_data?.isDeleted}}</td> -->
+                                                <!-- <td class="align-middle">{{petData?.current_weight}}</td> -->
+                                            <!-- </tr> -->
+
+                                            <!-- <tr>
+                                                <td>Incidents</td>
+                                                <td class="align-middle">{{petData?.incidents}}</td>
+                                            </tr> -->
+                                            <!-- <tr>
+                                                <td>Spayed</td>
+                                                <td class="align-middle">{{petData?.spayed}}</td>
+                                            </tr> -->
+                                            <!-- <tr>
+                                                <td>Door</td>
+                                                <td class="align-middle">{{petData?.door}}</td>
+                                            </tr> -->
+                                    </table>
+                                    <div>
+                                            <p class="temp_title">Temperament</p>
+                                            <div class="row pet_det">
+                                                <div *ngFor="let temperament_data of temperamentObj.response" class="col-md-3">
+                                                        <div class="card inner card_size" >
+                                                                <span class="img_data" ><img src="{{temperament_data?.image_path}}" height="60px"></span>
+                                                                <span class="name_data">{{temperament_data?.name}}</span>
+                                                        </div>
+                                                  </div>
+                                            </div> 
+                                    </div> 
+
+                                    <!-- <div *ngFor="let temperament_data of temperamentObj.response">
+                                            <td>{{temperament_data?.name}}</td>
+                                    </div> -->
+                                </mat-tab>
+                                <mat-tab label="Breed Detail">
+                                    <table id="example" class="table ">
+                                        <thead>
+
+                                        </thead>
+                                        <tbody>
+
+                                            <tr>
+                                                <td>Active Status</td>
+                                                <td class="align-middle" *ngIf="active_status==1; else elseBlock"> {{petData?.breeddetail?.active_status}} </td>
+                                                <ng-template #elseBlock>
+                                                    <td>
+                                                        <p class="align-middle status">Inactive</p>
+                                                    </td>
+                                                </ng-template>
+                                            </tr>
+                                            <tr>
+                                                <td>Breed Name</td>
+                                                <td class="align-middle">{{petData?.breeddetail?.breed_name}}</td>
+                                            </tr>
+                                            <tr>
+                                                <td>origin</td>
+                                                <td class="align-middle">{{petData?.breeddetail?.origin}}</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Life Span</td>
+                                                <td class="align-middle">{{petData?.breeddetail?.life_span}}</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Weight Male</td>
+                                                <td class="align-middle">{{petData?.breeddetail?.weight_male}}</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Weight Female</td>
+                                                <td class="align-middle">{{petData?.breeddetail?.weight_female}}</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Height Male</td>
+                                                <td class="align-middle">{{petData?.breeddetail?.height_male}}</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Height Female</td>
+                                                <td class="align-middle">{{petData?.breeddetail?.height_female}}</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Temperament</td>
+                                                <td class="align-middle">{{petData?.breeddetail?.temperament}}</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Image Path</td>
+                                                <td></td>
+
+                                            </tr>
+                                            <tr>
+                                                <td>Target</td>
+                                                <td class="align-middle">{{petData?.breeddetail?.target}}</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Manual Activity</td>
+                                                <td class="align-middle">{{petData?.breeddetail?.manual_activity}}</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Breed Category</td>
+                                                <td class="align-middle">{{petData?.breeddetail?.breed_cat}}</td>
+                                            </tr>
+
+                                            <tr>
+                                                <td>Current Height</td>
+                                                <td class="align-middle">{{petData?.current_height}}</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Unit</td>
+                                                <td class="align-middle">{{petData?.unit}}</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Owner Name</td>
+                                                <td class="align-middle">{{petData?.owner_name}}</td>
+                                            </tr>
+                                            <tr>
+                                                <td>City</td>
+                                                <td class="align-middle">{{petData?.city}}</td>
+                                            </tr>
+
+                                    </table>
+
+                                </mat-tab>
+                                <mat-tab label="Product Company">
+                                    <table id="example" class="table ">
+                                        <thead>
+
+                                        </thead>
+                                        <tbody>
+
+                                            <tr>
+                                                <td>Product Name </td>
+                                                <td class="align-middle">{{petData?.productcompany?.product_name }}</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Company Name</td>
+                                                <td class="align-middle">{{petData?.productcompany?.company_name}}</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Score Date</td>
+                                                <td class="align-middle">{{petData?.productcompany?.score_date | date}}</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Threshold</td>
+                                                <td class="align-middle">{{petData?.productcompany?.threshold}}</td>
+                                            </tr>
+
+                                            <tr>
+                                                <td>Product Name</td>
+                                                <td class="align-middle">{{petData?.productcompany?.product_name}}</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Recommended Food Intake</td>
+                                                <td class="align-middle">{{petData?.productcompany?.f_rec}} gm/day</td>
+                                            
+                                            </tr>
+
+                                    </table>
+                                </mat-tab>
+
+                                <mat-tab label="Graph Data" >
+                                    <div class="row">
+                                        <div class="col-md-6 text-center circle1">
+                                            <div class="circle">
+                                                <span>{{dailypercent}} %</span>
+                                            </div>
+
+                                        </div>
+                                        <div class="col-md-6 header1">
+                                            <h1 class="head1"> {{userview?.moves}}</h1>
+                                            <h6 class="head2">of {{userview?.totalCount}} moves</h6>
+
+                                            <div class="para">
+                                                <p class="paragraph">Active time & graph updated on {{userview?.last_update}} </p>
+                                            </div>
+                                        </div>
+
+
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-md-4 text-center ">
+
+                                            <div class="small_circle text-center">
+                                                <img class="icons" src="assets/img/active.png">
+                                            </div>
+                                            <h6 class="text-center active">Active</h6>
+                                            <h6 class="text-center active">{{active}}</h6>
+                                        </div>
+                                        <div class="col-md-4 text-center ">
+
+                                            <div class="small_circle1 text-center">
+                                                <img class="icons" src="assets/img/rest.png">
+                                            </div>
+                                            <h6 class="text-center rest">Rest</h6>
+                                            <h6 class="text-center active">{{Inactive}}</h6>
+                                        </div>
+                                        <div class="col-md-4 text-center  ">
+                                            <div class="small_circle1 text-center">
+                                                <img class="icons" src="assets/img/miles.png">
+                                            </div>
+                                            <h6 class="text-center miles">Miles</h6>
+                                            <h6 class="text-center active">{{userview?.miles}}</h6>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-md-12 ">
+                                                <canvas id="petChartss"class="myChart"  height="200px"></canvas>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-12 radio_button">
+                                        <mat-radio-group [(ngModel)]="activity_data.value">
+                                            <mat-radio-button value="1">Day</mat-radio-button>
+                                            <mat-radio-button value="2">Date Range</mat-radio-button>
+                                            <mat-radio-button value="3">Monthly</mat-radio-button>
+                                        </mat-radio-group>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-4 date_picker">
+
+                                        </div>
+                                        <div class="col-md-4 date_picker" *ngIf="activity_data.value=='1'">
+                                            <label> Day </label>
+                                            <div>
+                                                <my-date-picker name="mydate" [options]="myDatePickerOptions" [(ngModel)]="form_date.model" required></my-date-picker>
+                                            </div>
+                                            <button type="button" (click)="graphDetailDay()">Submit</button>
+                                        </div>
+                                        <div class="col-md-4 date_picker" *ngIf="activity_data.value=='3'">
+                                                <form [formGroup] = "userForms" (ngSubmit) = "monthlyData(userForms)">
+                                            <!-- <label> Monthly </label> -->
+                                            <select class='select-option' required  formControlName= "month_selected" >
+                                                    <option class='option' *ngFor='let option of options' [value]="option.id">{{option.month}}</option>
+                                             </select>
+                                             <!-- <label> Year </label> -->
+                                             <select class='select-option' required  formControlName= "year_selected" >
+                                                    <!-- <option class='option' *ngFor='let year of years' [value]="year.label">{{year}}</option> -->
+                                                    <option class='option'  [value]="2016">2016</option>
+                                                    <option class='option'  [value]="2017">2017</option>
+                                                    <option class='option'  [value]="2018">2018</option>
+                                             </select>
+                                             
+                                             <!-- <div class="dropdown">
+                                                <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Monthly
+                                                <span class="caret"></span></button>
+                                                <ul class="dropdown-menu">
+                                                    <li *ngFor='let option of options' (click)="monthlyData(option)">{{option.month}}</li>
+                                                </ul>
+                                            </div> -->
+                                            <!-- <label> Years </label>
+                                            <select class='select-option' required [(ngModel)]='optionSelected' (change)='onOptionsSelecte(options)'>
+                                                    <option class='option' *ngFor='let option of options' [value]="option">{{option}}</option>
+                                            </select> -->
+                                            <!-- <form #myForm="ngForm" novalidate>
+                                                <my-date-picker name="mydate"  [options]="myDatePickerOptions" [(ngModel)]="form_date.model3" required></my-date-picker>
+                                            </form> -->
+                                            <button type="submit" >Submit</button>
+
+                                        </form>
+                                        </div>
+
+                                    </div>
+                                    <div class="row date_picker_monthly" *ngIf="activity_data.value=='2'">
+                                        <div class="col-md-4 date_picker">
+                                            <label> From </label>
+                                            <form #myForm="ngForm" novalidate>
+                                                <my-date-picker name="mydate" [options]="myDate" [(ngModel)]="form_date.week_start" required></my-date-picker>
+                                            </form>
+                                        </div>
+                                        <div class="col-md-4 date_picker">
+                                            <label> To </label>
+                                            <form #myForm="ngForm" novalidate>
+                                                <my-date-picker name="mydate" [options]="my" [(ngModel)]="form_date.week_end" required></my-date-picker>
+                                            </form>
+                                            <button type="button" (click)="weekData()">Submit</button>
+                                        </div>
+
+                                    </div>
+                                </mat-tab>
+                                <mat-tab label="Sync History" >
+                                    <table id="example" class="table" style="margin-top: 27px;">
+                                        <thead>
+                           
+                                            <tr>
+                                                    <th>Sync Id</th>
+                                                    <th>User Id</th>
+                                                    <th>Pet Id</th>
+                                                    <th>Date</th>
+                                                    <th>Time</th>
+                                                    <th>From Datetime</th>
+                                                    <th>End Datetime</th>
+                                                    <th>Total Data</th>
+                                                    <th>Total Steps</th>
+                                                    <th>Device Id</th>
+                                            </tr>
+                                            <!-- <tr> -->
+                                                    <!-- <style>
+                                                            .input_search{
+                                                                background:url('assets/img/search icon.png') #fff no-repeat;
+                                                                background-position: 0% center;
+                                                                padding-left: 24px;
+                                                            }
+                                                            </style> -->
+                                            <!-- <th><input type="text" class="form-control input_search breed_place_holder1" name="lifestyle_id" [(ngModel)]="filterArg.breed_category_id"  placeholder="Search.."></th>
+                                            <th><input type="text" class="form-control input_search breed_place_holder2" name="breed_name" [(ngModel)]="filterArg.breed_name" placeholder="Search.."></th>
+                                            <th></th>
+                                            <th></th>
+                                            </tr> -->
+                                    </thead>
+                                    <tbody>
+                                    <tr *ngFor="let histories of syncHis  | paginate: {itemsPerPage: 4, currentPage:page, id: '1'}; let i = index">
+                                        <!-- | listbreedcategoryFilter:filterArg -->
+                                            <td class="align-middle">{{histories.sync_id}}</td>
+                                            <td class="align-middle">{{histories.user_id}}</td>
+                                            <td class="align-middle">{{histories.pet_id}}</td>
+                                            <td class="align-middle">{{histories.date}}</td>
+                                            <td class="align-middle">{{histories.time}}</td>
+                                            <td class="align-middle">{{histories.from_datetime}}</td>
+                                            <td class="align-middle">{{histories.end_datetime}}</td>
+                                            <td class="align-middle">{{histories.total_data}}</td>
+                                            <td class="align-middle">{{histories.total_steps}}</td>
+                                            <td class="align-middle">{{histories.device_id}}</td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                                <pagination-controls class="pagination_list_breed_category" (pageChange)="page = $event" id="1"
+                maxSize="5"
+                directionLinks="true"
+                autoHide="true">
+          </pagination-controls>
+                                </mat-tab>
+                            </mat-tab-group>
+                        </div>
+
+                        <div class="col-md-2">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- User Pet Detail End-->

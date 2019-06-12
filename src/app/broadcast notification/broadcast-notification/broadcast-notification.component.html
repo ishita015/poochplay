@@ -1,0 +1,269 @@
+<!--Add Breeds Start -->
+<div class="backdrop" [ngStyle]="{'display':display2}"></div>
+<div class="modal" id="test" tabindex="-1" aria-hidden="true" role="dialog"  [ngStyle]="{'display':display2}">
+    <div class="modal-dialog  modal-dialog-centered modal-sm">
+        <div class="modal-content dialog">
+            <div class="modal-header popup1">
+                    <p class="delete_text">{{add_Notification.message}}</p>
+            </div>
+            
+            <div class="modal-footer popup2">
+                <button type="button"  class="btn btn-default conform_delete" (click)="hidePopup()" >Ok</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal! -->
+
+<div class="card p-3 relative">
+    <div class="image-loader" *ngIf="imageLoader" style="top:14%">
+            <img src="assets/img/loading.gif" />
+        </div>
+<p *ngIf="isValidFormSubmitted && userForm.pristine" [ngClass] = "'success'">
+  
+</p>
+<h5 class="title_add_breeds">Notifications Form</h5>
+<form class="container" [formGroup] = "userForm" (ngSubmit) = "onSubmit(userForm)">
+<div class="row form-group">
+    <div class="col-md-6">
+            <label class="site_label" for="inputdefault">Notification Title</label>
+        <!-- <label>Notification Title <span class="error_star">*</span></label> -->
+        <input type="text" formControlName="title" placeholder="Title" class="form-control" required>
+        <!-- <div *ngIf="notificationForm.controls['broadcast_title'].errors && ( !notificationForm.controls['broadcast_title'].pristine || submitted || notificationForm.controls['broadcast_title'].touched )" class="error-msg">
+            <div [hidden]="!notificationForm.controls['broadcast_title'].errors.required"> Notification Title Is Required.</div>
+        </div> -->
+    </div>
+    <div class="col-sm-6">
+    </div>
+ </div>
+ <div class="row form-group">
+    <div class="col-md-12">
+        <label class="site_label" for="inputdefault">Notification Message</label>
+        <!-- <label>Notification Message <span class="error_star">*</span></label> -->
+        <textarea formControlName="message" placeholder="Notification Message" class="form-control" required></textarea>
+        <!-- <div *ngIf="notificationForm.controls['broadcast_msg'].errors && ( !notificationForm.controls['broadcast_msg'].pristine || submitted || notificationForm.controls['broadcast_msg'].touched )" class="error-msg">
+            <div [hidden]="!notificationForm.controls['broadcast_msg'].errors.required"> Notification Message Is Required.</div>
+        </div> -->
+    </div>
+</div>
+<button type="button" (click) = "onSubmit(userForm)" class="btn btn-default site_btn ">Save</button>
+</form>
+</div>
+
+
+<!--Add Table -->
+
+<div class="card p-3 relative">
+<!-- <div class="image-loader" *ngIf="imageLoader" style="top:14%">
+        <img src="assets/img/loading.gif" />
+    </div> -->
+
+<div class="row">
+<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+<div class="table_header mb-3">
+    <h2 class="table_title">User List </h2>
+    <hr>
+    <div class="row">
+        <div class="col-md-8 col-sm-6 col-xs-12">
+        </div> 
+        <div class="col-md-4 col-sm-6 col-xs-12">
+            <div class="t_header_right">
+                
+            </div> 
+        </div> 
+    </div>
+</div>
+<div *ngIf="isHide=='false'">
+        <span> <input type="text" class="form-control input_search user_place_holders" name="user_id" [(ngModel)]="search.searchData"  placeholder="Search....">
+        <button type="button" class="btn btn-default go_btn "  (click)="search(search)" >GO</button></span>
+        <div class="table-responsive ">
+          <table class="table user_list_2 ">
+        <thead>
+                <tr>
+                        <th width="18%">
+                                <div class="checkbox checkbox-primary pb-0">
+                                    <label class="">
+                                            <!-- <input type="checkbox" [(ngModel)]="selectedAll" (change) = 'selectAll()'> <span class="label-text">select All </span> -->
+
+                                            <mat-checkbox [(ngModel)]="selectedAll" (change) = 'selectAll()' >select All</mat-checkbox>
+                                    </label>
+                                </div>   
+                            </th>
+                        <th>User Id </th>
+                        <th>First Name</th>
+                        <!-- <th>Last Name</th> -->
+                        <th>Email</th>
+                        <th>Os Type</th>
+                        <!-- <th>Profile</th>
+                        <th>Action</th> -->
+                 </tr>
+
+               
+
+                <!-- <tr>
+                        <style>
+                                .input_search{
+                                    background:url('assets/img/search icon.png') #fff no-repeat;
+                                    background-position: 0% center;
+                                    padding-left: 24px;
+                                }
+                        </style>    
+                <th><input type="text" class="form-control input_search user_place_holder1" name="user_id" [(ngModel)]="filterArg.user_id"  placeholder="Search...."></th>
+                <th><input type="text" class="form-control input_search user_place_holder2" name="first_name" [(ngModel)]="filterArg.first_name" placeholder="Search...."></th>
+                <th><input type="text" class="form-control input_search user_place_holder3" name="last_name" [(ngModel)]="filterArg.last_name" placeholder="Search...."></th>
+                <th></th> -->
+                <!-- <th></th>
+                <th></th> -->
+                <!-- </tr> -->
+        </thead>
+        <tr *ngFor="let user of userlist.response  | userlistFilter:filterArg">
+                <td>
+                        <div class="checkbox checkbox-primary" >
+                            <label class="">
+                                    <mat-checkbox [(ngModel)]="user.selected" (change)= 'checkSome(user);checkIfAllSelected()' ></mat-checkbox>
+                                <!-- <input type="checkbox" [(ngModel)]="user.selected"  (change)= 'checkSome(user);checkIfAllSelected()'> <span class="label-text"></span> -->
+                            </label>
+                        </div>
+                    </td>
+                <td class="align-middle">{{user?.user_id}}</td>
+                <td class="align-middle">{{user?.first_name}}</td>
+                <!-- <td class="align-middle">{{user?.last_name}}</td> -->
+                <td class="align-middle">{{user?.email}}</td>
+                <td class="align-middle">{{user?.platform_type}}</td>
+                <!-- <td class="align-middle userlist_image">
+                    <img src="{{user?.profile_pic}}" height="60px">
+                    <img *ngIf="user?.profile_pic ==''" src="https://cdn.evbuc.com/eventlogos/91884425/imagenotavailablegrid.jpg" height="60px">
+                </td>
+                <td class="align-middle">
+                        <a [routerLink] = "['/users/user-list/', user.user_id]" ><i class="fas fa-eye" height="15px" hspace="9"></i></a>
+                       
+                </td> -->
+                
+        </tr>
+      </table>
+      <!-- Add pagination -->
+      <div class="row pagination-block">
+        <aside class="col-sm-6">
+        <h5 class="page-count">
+            {{ offset + 1 }} - {{ offset + limit }} item in {{ count }} Items
+        </h5>
+        </aside>
+        <style>
+            ul.with-dot li:nth-child(2), ul.with-dot li:nth-last-child(2){
+                border:none;
+                pointer-events: none;
+                cursor: default;
+            }
+            .ul-pagination li{width:36px}
+        </style>
+        <aside class="col-sm-6">
+            <ul class="ul-pagination" [ngClass]=" dotPage==true ? 'with-dot':'no-dot'">
+                <li *ngFor="let page of pagination" (click)="setOffset(page)"
+                [ngClass]="current_page == page ? 'li-active' : '' ">{{ page }}</li>
+            </ul>
+        </aside>
+    </div>
+        </div>
+</div>
+
+
+
+
+  <!-- Add New Table 2 -->
+  <div *ngIf="isShow=='true'">
+    <span> <input type="text" class="form-control input_search user_place_holders" name="user_id" [(ngModel)]="search.searchData"  placeholder="Search....">
+    <button type="button" class="btn btn-default go_btn"  (click)="search(search)" >GO</button></span>
+        <div class="table-responsive user_list_2">
+            <table class="table table_2">
+                <thead>
+                    <tr>
+                            <th width="18%">
+                                    <div class="checkbox checkbox-primary pb-0">
+                                        <label class="">
+                                                <!-- <input type="checkbox" [(ngModel)]="selectedAll" (change) = 'selectAll()'> <span class="label-text">select All </span> -->
+    
+                                                <mat-checkbox [(ngModel)]="selectedAll" (change) = 'selectAll()' >select All</mat-checkbox>
+                                        </label>
+                                    </div>   
+                                </th>
+                            <th>User Id</th>
+                            <th>First Name</th>
+                            <!-- <th>Last Name</th> -->
+                            <th>Email</th>
+                            <th>Os Type</th>
+                            
+                     </tr>
+
+                   
+
+                    <tr>
+                            <!-- <style>
+                                    .input_search{
+                                        background:url('assets/img/search icon.png') #fff no-repeat;
+                                        background-position: 0% center;
+                                        padding-left: 24px;
+                                    }
+                            </style>    
+                    <th><input type="text" class="form-control input_search user_place_holder1" name="user_id" [(ngModel)]="filterArg.user_id"  placeholder="Search...."></th>
+                    <th><input type="text" class="form-control input_search user_place_holder2" name="first_name" [(ngModel)]="filterArg.first_name" placeholder="Search...."></th>
+                    <th><input type="text" class="form-control input_search user_place_holder3" name="last_name" [(ngModel)]="filterArg.last_name" placeholder="Search...."></th>
+                    <th></th>
+                    <th></th>
+                    <th></th> -->
+                    </tr>
+            </thead>
+            <tr *ngFor="let user of userlist.response  | userlistFilter:filterArg">
+                    <td>
+                        <div class="checkbox checkbox-primary" >
+                            <label class="">
+                                    <mat-checkbox [(ngModel)]="user.selected" (change)= 'checkSome(user);checkIfAllSelected()' ></mat-checkbox>
+                                    <!-- <input type="checkbox" [(ngModel)]="user.selected"  (change)= 'checkSome(user);checkIfAllSelected()'> <span class="label-text"></span> -->
+                                </label>
+                            </div>
+                        </td>
+                    <td class="align-middle">{{user?.user_id}}</td>
+                    <td class="align-middle">{{user?.first_name}}</td>
+                    <!-- <td class="align-middle">{{user?.last_name}}</td> -->
+                    <td class="align-middle">{{user?.email}}</td>
+                    <td class="align-middle">{{user?.platform_type}}</td>
+                    <!-- <td class="align-middle userlist_image">
+                        <img src="{{user?.profile_pic}}" height="60px">
+                        <img *ngIf="user?.profile_pic ==''" src="https://cdn.evbuc.com/eventlogos/91884425/imagenotavailablegrid.jpg" height="60px">
+                    </td>
+                    <td class="align-middle">
+                            <a [routerLink] = "['/users/user-list/', user.user_id]" ><i class="fas fa-eye" height="15px" hspace="9"></i></a>
+                           
+                    </td> -->
+                    
+            </tr>
+          </table>
+          <!-- Add pagination -->
+          <div class="row pagination-block">
+            <aside class="col-sm-6">
+            <h5 class="page-count">
+                {{ offset + 1 }} - {{ offset + limit }} item in {{ count }} Items
+            </h5>
+            </aside>
+            <style>
+                ul.with-dot li:nth-child(2), ul.with-dot li:nth-last-child(2){
+                    border:none;
+                    pointer-events: none;
+                    cursor: default;
+                }
+                .ul-pagination li{width:36px}
+            </style>
+            <aside class="col-sm-6">
+                <ul class="ul-pagination" [ngClass]=" dotPage==true ? 'with-dot':'no-dot'">
+                    <li *ngFor="let page of pagination" (click)="setOffset(page)"
+                    [ngClass]="current_page == page ? 'li-active' : '' ">{{ page }}</li>
+                </ul>
+            </aside>
+        </div>
+    </div>
+</div>
+
+
+</div>
+</div>
+</div>
+
+

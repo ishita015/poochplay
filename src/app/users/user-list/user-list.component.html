@@ -1,0 +1,180 @@
+<!-- User View Start -->
+        <div class="card p-3 relative">
+                <div class="image-loader" *ngIf="imageLoader" style="top:14%">
+                        <img src="assets/img/loading.gif" />
+                    </div>
+        
+    <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div class="table_header mb-3">
+                    <h2 class="table_title">User List </h2>
+                    <hr>
+                    <div class="row">
+                        <div class="col-md-8 col-sm-6 col-xs-12">
+                        </div> 
+                        <div class="col-md-4 col-sm-6 col-xs-12">
+                            <div class="t_header_right">
+                                
+                            </div> 
+                        </div> 
+                    </div>
+                </div>
+                <div *ngIf="isHide=='false'">
+                        <span> <input type="text" class="form-control input_search user_place_holders" name="user_id" [(ngModel)]="search.searchData"  placeholder="Search....">
+                        <button type="button" class="btn btn-default go_btn "  (click)="search(search)" >GO</button></span>
+                        <div class="table-responsive ">
+                          <table class="table user_list_2 ">
+                        <thead>
+                                <tr>
+                                        <th>User Id </th>
+                                        <th>First Name</th>
+                                        <th>Last Name</th>
+                                        <th>Email</th>
+                                        <th>Profile</th>
+                                        <th>Action</th>
+                                 </tr>
+        
+                               
+
+                                <!-- <tr>
+                                        <style>
+                                                .input_search{
+                                                    background:url('assets/img/search icon.png') #fff no-repeat;
+                                                    background-position: 0% center;
+                                                    padding-left: 24px;
+                                                }
+                                        </style>    
+                                <th><input type="text" class="form-control input_search user_place_holder1" name="user_id" [(ngModel)]="filterArg.user_id"  placeholder="Search...."></th>
+                                <th><input type="text" class="form-control input_search user_place_holder2" name="first_name" [(ngModel)]="filterArg.first_name" placeholder="Search...."></th>
+                                <th><input type="text" class="form-control input_search user_place_holder3" name="last_name" [(ngModel)]="filterArg.last_name" placeholder="Search...."></th>
+                                <th></th>
+                                <th></th>
+                                <th></th>
+                                </tr> -->
+                        </thead>
+                        <tr *ngFor="let user of userlist.response | userlistFilter:filterArg">
+                                <td class="align-middle">{{user?.user_id}}</td>
+                                <td class="align-middle">{{user?.first_name}}</td>
+                                <td class="align-middle">{{user?.last_name}}</td>
+                                <td class="align-middle">{{user?.email}}</td>
+                                <td class="align-middle userlist_image">
+                                    <img src="{{user?.profile_pic}}" height="60px">
+                                    <img *ngIf="user?.profile_pic ==''" src="https://cdn.evbuc.com/eventlogos/91884425/imagenotavailablegrid.jpg" height="60px">
+                                </td>
+                                <td class="align-middle">
+                                        <a [routerLink] = "['/users/user-list/', user.user_id]" ><i class="fas fa-eye" height="15px" hspace="9"></i></a>
+                                       
+                                </td>
+                                
+                        </tr>
+                      </table>
+                      <!-- Add pagination -->
+                      <div class="row pagination-block">
+                        <aside class="col-sm-6">
+                        <h5 class="page-count">
+                            {{ offset + 1 }} - {{ offset + limit }} item in {{ count }} Items
+                        </h5>
+                        </aside>
+                        <style>
+                            ul.with-dot li:nth-child(2), ul.with-dot li:nth-last-child(2){
+                                border:none;
+                                pointer-events: none;
+                                cursor: default;
+                            }
+                            .ul-pagination li{width:36px}
+                        </style>
+                        <aside class="col-sm-6">
+                            <ul class="ul-pagination" [ngClass]=" dotPage==true ? 'with-dot':'no-dot'">
+                                <li *ngFor="let page of pagination" (click)="setOffset(page)"
+                                [ngClass]="current_page == page ? 'li-active' : '' ">{{ page }}</li>
+                            </ul>
+                        </aside>
+                    </div>
+                        </div>
+                </div>
+
+
+
+
+                  <!-- Add New Table 2 -->
+                  <div *ngIf="isShow=='true'">
+                    <span> <input type="text" class="form-control input_search user_place_holders" name="user_id" [(ngModel)]="search.searchData"  placeholder="Search....">
+                    <button type="button" class="btn btn-default go_btn"  (click)="search(search)" >GO</button></span>
+                        <div class="table-responsive user_list_2">
+                            <table class="table table_2">
+                                <thead>
+                                    <tr>
+                                            <th>User Id</th>
+                                            <th>First Name</th>
+                                            <th>Last Name</th>
+                                            <th>Email</th>
+                                            <th>Profile</th>
+                                            <th>Action</th>
+                                     </tr>
+            
+                                   
+    
+                                    <tr>
+                                            <style>
+                                                    .input_search{
+                                                        background:url('assets/img/search icon.png') #fff no-repeat;
+                                                        background-position: 0% center;
+                                                        padding-left: 24px;
+                                                    }
+                                            </style>    
+                                    <th><input type="text" class="form-control input_search user_place_holder1" name="user_id" [(ngModel)]="filterArg.user_id"  placeholder="Search...."></th>
+                                    <th><input type="text" class="form-control input_search user_place_holder2" name="first_name" [(ngModel)]="filterArg.first_name" placeholder="Search...."></th>
+                                    <th><input type="text" class="form-control input_search user_place_holder3" name="last_name" [(ngModel)]="filterArg.last_name" placeholder="Search...."></th>
+                                    <th></th>
+                                    <th></th>
+                                    <th></th>
+                                    </tr>
+                            </thead>
+                            <tr *ngFor="let user of userlist.response | userlistFilter:filterArg">
+                                    <td class="align-middle">{{user?.user_id}}</td>
+                                    <td class="align-middle">{{user?.first_name}}</td>
+                                    <td class="align-middle">{{user?.last_name}}</td>
+                                    <td class="align-middle">{{user?.email}}</td>
+                                    <td class="align-middle userlist_image">
+                                        <img src="{{user?.profile_pic}}" height="60px">
+                                        <img *ngIf="user?.profile_pic ==''" src="https://cdn.evbuc.com/eventlogos/91884425/imagenotavailablegrid.jpg" height="60px">
+                                    </td>
+                                    <td class="align-middle">
+                                            <a [routerLink] = "['/users/user-list/', user.user_id]" ><i class="fas fa-eye" height="15px" hspace="9"></i></a>
+                                           
+                                    </td>
+                                    
+                            </tr>
+                            
+                          </table>
+                          <!-- Add pagination -->
+                          <div *ngIf="isHidePag==false" class="row pagination-block">
+                            <aside class="col-sm-6">
+                            <h5 class="page-count">
+                                {{ offset + 1 }} - {{ offset + limit }} item in {{ count }} Items
+                            </h5>
+                            </aside>
+                            <style>
+                                ul.with-dot li:nth-child(2), ul.with-dot li:nth-last-child(2){
+                                    border:none;
+                                    pointer-events: none;
+                                    cursor: default;
+                                }
+                                .ul-pagination li{width:36px}
+                            </style>
+                            <aside class="col-sm-6">
+                                <ul class="ul-pagination" [ngClass]=" dotPage==true ? 'with-dot':'no-dot'">
+                                    <li *ngFor="let page of pagination" (click)="setOffset(page)"
+                                    [ngClass]="current_page == page ? 'li-active' : '' ">{{ page }}</li>
+                                </ul>
+                            </aside>
+                        </div>
+                    </div>
+               </div>
+            
+            
+            </div>
+        </div>
+      </div>
+    
+      <!-- User View End -->

@@ -1,0 +1,58 @@
+<div class="backdrop" [ngStyle]="{'display':display2}"></div>
+<div class="modal" id="test" tabindex="-1" aria-hidden="true" role="dialog"  [ngStyle]="{'display':display2}">
+    <div class="modal-dialog  modal-dialog-centered modal-sm">
+        <div class="modal-content dialog">
+            <div class="modal-header popup1">
+                    <p class="delete_text">{{update_page.message}}</p>
+            </div>
+            
+            <div class="modal-footer popup2">
+                <button type="button"  class="btn btn-default conform_delete" (click)="hidePopup()" >Ok</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal! -->
+<div class="card p-3 relative">
+        <!-- <div class="image-loader" *ngIf="imageLoader" style="top:14%">
+                <img src="assets/img/loading.gif" />
+            </div> -->
+    <p >
+      
+    </p>
+    <h5 class="title_add_breeds">Privacy Polices<span class="error_star">*</span></h5>
+  
+      <div class="row form-group">
+        <div class="col-md-12">
+                <div *ngIf="isHide==false" class="col-md-12 col-sm-12 col-xs-12">
+                        <!-- <label>Page Description<span class="error_star">*</span></label> -->
+                        <!-- <p>{{pageresponse.page_value}}</p> -->
+                        <app-ngx-editor class="editor" [placeholder]="'Enter text here...'" [spellcheck]="true" [(ngModel)]="pageresponse.page_value" ></app-ngx-editor>
+                        <!-- <div *ngIf="addForm.controls['content_text'].errors && ( !addForm.controls['content_text'].pristine || submitted || addForm.controls['content_text'].touched )" class="error-msg">
+                            <div [hidden]="!addForm.controls['content_text'].errors.required"> Page Description Is Required.</div>
+                        </div> -->
+                        <!-- <span class="error-msg" [ngStyle]="{'display':displayerror}">Page Description Is Required</span>                                                                                                                  -->
+                        <button type="button"   (click) = "edit(pageresponse)" class="btn btn-default site_btn ">Edit</button>    
+                    </div>
+           
+        </div>
+    </div>
+    <div *ngIf="isShow==true" class="row form-group">
+            <!-- <form class="container" [formGroup] = "editForm"> -->
+        <div class="col-md-12">
+                <div class="col-md-12 col-sm-12 col-xs-12">
+                        <!-- <label>Page Description <span class="error_star">*</span></label> -->
+                        <app-ngx-editor class="editor" [placeholder]="'Enter text here...'" [spellcheck]="true"  [(ngModel)]="pageresponse.page_value" ></app-ngx-editor>
+                        <!-- <div *ngIf="addForm.controls['content_text'].errors && ( !addForm.controls['content_text'].pristine || submitted || addForm.controls['content_text'].touched )" class="error-msg">
+                            <div [hidden]="!addForm.controls['content_text'].errors.required"> Page Description Is Required.</div>
+                        </div> -->
+                        <!-- <span class="error-msg" [ngStyle]="{'display':displayerror}">Page Description Is Required</span>                                                                                                                  -->
+                    </div>
+           
+        </div>
+        <button type="button" (click) = "onSubmit(pageresponse)" class="btn btn-default site_btn ">Save</button>
+    <!-- </form> -->
+    </div>
+    
+   
+
+</div>

@@ -1,0 +1,52 @@
+<!--Update Life Style Start -->
+<div class="backdrop" [ngStyle]="{'display':display2}"></div>
+<div class="modal" id="test" tabindex="-1" aria-hidden="true" role="dialog"  [ngStyle]="{'display':display2}">
+    <div class="modal-dialog  modal-dialog-centered modal-sm">
+        <div class="modal-content dialog">
+            <div class="modal-header popup1">
+                    <p class="delete_text">{{_Array3.message}}</p>
+            </div>
+            
+            <div class="modal-footer popup2">
+                <button type="button" [routerLink] = "['/lifestyle/list-life-style/']" class="btn btn-default conform_delete" (click)="hidePopup()" >Ok</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal! -->
+<div class="card p-3 relative">
+    <div class="image-loader" *ngIf="imageLoader" style="top:14%">
+            <img src="assets/img/loading.gif" />
+        </div>
+
+
+<div class="card p-3">
+    <p *ngIf="isValidFormSubmitted && userForm.pristine" [ngClass] = "'success'">
+    
+    </p>
+
+    <h5 class="title_add_breeds">Update Life Style</h5>
+    <form class="container" [formGroup] = "userForm" (ngSubmit) = "onSubmit(userForm)">
+    <div class="row form-group">
+        <div class="col-sm-6">
+            <label class="site_label" for="inputdefault">Name<span style="color:red">*</span></label>
+            <input class="form-control site_input"  type="text" placeholder="Name" [(ngModel)]="updatelifestyle.name" formControlName="name">
+            <div *ngIf="name.invalid && isValidFormSubmitted != null && !isValidFormSubmitted" [ngClass] = "'error'"> 
+                Name Is Required. 
+           </div>
+        </div>
+        <div class="col-sm-6">
+            <label class="site_label" for="inputdefault">Status</label>
+            <div class="check_box">
+                <mat-checkbox [checked]="updatelifestyle.status" formControlName="status"  [(ngModel)]="updatelifestyle.status" >Active</mat-checkbox>
+            </div>
+           
+            
+            </div>
+     </div> 
+    
+    
+    <button type="button" (click) ="onSubmit(userForm)" class="btn btn-default site_btn ">Update</button>
+    </form>
+</div>
+
+<!--Update Life Style End -->

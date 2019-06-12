@@ -1,0 +1,231 @@
+<!--Update Breeds Start -->
+<div class="backdrop" [ngStyle]="{'display':display2}"></div>
+<div class="modal" id="test" tabindex="-1" aria-hidden="true" role="dialog"  [ngStyle]="{'display':display2}">
+    <div class="modal-dialog  modal-dialog-centered modal-sm">
+        <div class="modal-content dialog">
+            <div class="modal-header popup1">
+                    <p class="delete_text" >{{message}}</p>
+            </div>
+            
+            <div class="modal-footer popup2">
+                <button type="button" [routerLink] = "['/breed/view-breeds']" class="btn btn-default conform_delete" (click)="hidePopup()" >Ok</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal! -->
+
+<div class="backdrop1" [ngStyle]="{'display':display3}"></div>
+  <div class="modal1" id="test" tabindex="-1" aria-hidden="true" role="dialog"  [ngStyle]="{'display':display3}">
+    <div class="modal-dialog  modal-dialog-centered modal-sm">
+        <div class="modal-content dialog">
+            <div class="modal-header popup1">
+                    <p  class="delete_text">Only image file is accepted </p>
+            </div>
+              <div class="modal-footer popup2">
+                <button type="button" class="btn btn-default conform_delete" (click)="hidePopup1()" >Ok</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="card p-3">
+    <p  [ngClass] = "'success'">
+    </p>
+    <h5 class="title_add_breeds">Update Breed</h5>
+    <form class="container">
+    <div class="image-loader" *ngIf="imageLoader" style="top:14%">
+            <img src="assets/img/loading.gif" />
+        </div>
+    
+
+    <div class="row form-group">
+        <div class="col-sm-6">
+            <label class="site_label" for="inputdefault">Breed Name<span style="color:red">*</span></label>
+            <input class="form-control site_input ng-pristine ng-untouched ng-not-empty ng-valid 
+            ng-valid-required" #breedName="ngModel" [ngModelOptions]="{standalone: true}" 
+            name="ofn" required=""  type="text" placeholder="Breed Name" 
+            [(ngModel)]="updatebreeds.breed_name"  >
+            <div class="form-control-feedback" *ngIf="breedName.invalid&&breedName.touched"> Breed Name Is Required.</div>
+            <!-- <div *ngIf="breed_name.errors?.required && isValidFormSubmitted != null && !isValidFormSubmitted" [ngClass] = "'error'"> 
+                Breed Name Is Required. 
+             </div> -->
+             <!-- <div *ngIf="breedName.invalid && isValidFormSubmitted != null && !isValidFormSubmitted" [ngClass] = "'error'"> 
+                Breed Name Is Required. 
+            </div> -->
+         </div>
+        <div class="col-sm-6">
+            <label class="site_label" for="inputdefault">Breed Categories<span style="color:red">*</span></label>
+            <select name="addbreed" class="form-control select_add_breeds site_input site_input ng-pristine ng-untouched ng-not-empty ng-valid 
+            ng-valid-required" name="ofn" required=""  #breedcategoryid="ngModel" id="select" [ngModelOptions]="{standalone: true}"  [(ngModel)]="updatebreeds.breed_category_id"  >
+                    <option *ngFor="let user of breedcategory.list" [value]="user.breed_category_id">
+                            {{user.breed_name}}
+                        </option>
+            </select>
+            <div class="form-control-feedback" *ngIf="breedcategoryid.invalid&&breedcategoryid.touched">  Breed Category Id Is Required.</div>
+            <!-- <div *ngIf="breedcategoryid.invalid && isValidFormSubmitted == null && !isValidFormSubmitted" [ngClass] = "'error'"> 
+                Breed Category Id Is Required. 
+            </div> -->
+        </div>
+
+     </div>
+    <div class="row form-group">
+        <div class="col-sm-6">
+           
+            <label class="site_label" for="inputdefault">Origin<span style="color:red">*</span></label>
+            <input class="form-control site_input ng-pristine ng-untouched ng-not-empty ng-valid 
+            ng-valid-required"  name="ofn" required="" [ngModelOptions]="{standalone: true}"   #origin="ngModel" type="text" placeholder="Origin"  [(ngModel)]="updatebreeds.origin">
+            <!-- <div *ngIf="origin.invalid && isValidFormSubmitted != null && !isValidFormSubmitted" [ngClass] = "'error'"> 
+                Origin Is Required.
+            </div> -->
+            <div class="form-control-feedback" *ngIf="origin.invalid&&origin.touched">  Origin Is Required.</div>
+        </div>
+        <div class="col-sm-6">
+             <label class="site_label" for="inputdefault">Life Span In Years<span style="color:red">*</span></label>
+             <input class="form-control site_input ng-pristine ng-untouched ng-not-empty ng-valid 
+             ng-valid-required"  name="ofn" required="" [ngModelOptions]="{standalone: true}"  #lifespan="ngModel" type="number" placeholder="Life Span"  [(ngModel)]="updatebreeds.life_span">
+             <!-- <div *ngIf="lifespan.invalid && isValidFormSubmitted != null && !isValidFormSubmitted" [ngClass] = "'error'"> 
+                Life Span Is Required. 
+                </div> -->
+               
+                <div class="form-control-feedback" *ngIf="lifespan.invalid&&lifespan.touched">  Life Span Is Required. </div>
+                
+       </div>
+    </div>
+      
+    <div class="row form-group">
+    <div class="col-sm-6">
+        <label class="site_label" for="inputdefault">Weight Male In Kg<span style="color:red">*</span></label>
+        <input class="form-control site_input ng-pristine ng-untouched ng-not-empty ng-valid 
+        ng-valid-required" type="number"  name="ofn" required="" #weightmale="ngModel" [ngModelOptions]="{standalone: true}"   placeholder="Weight Male"  [(ngModel)]="updatebreeds.weight_male">
+        <!-- <div *ngIf="weight_male.invalid && isValidFormSubmitted != null && !isValidFormSubmitted" [ngClass] = "'error'"> 
+            Weight Male Is Required. 
+            </div> -->
+            <div class="form-control-feedback" *ngIf="weightmale.invalid&&weightmale.touched"> Weight Male Is Required.  </div>
+   
+    </div>
+    <div class="col-sm-6">
+         <label class="site_label" for="inputdefault">Weight Female In Kg<span style="color:red">*</span></label>
+         <input class="form-control site_input ng-pristine ng-untouched ng-not-empty ng-valid 
+         ng-valid-required"  type="number"  name="ofn" required="" [ngModelOptions]="{standalone: true}" #weightfemale="ngModel" placeholder="Weight Female" [(ngModel)]="updatebreeds.weight_female">
+         <!-- <div *ngIf="weightfemale.invalid && isValidFormSubmitted != null && !isValidFormSubmitted" [ngClass] = "'error'"> 
+            Weight Female Is Required. 
+            </div> -->
+            <div class="form-control-feedback" *ngIf="weightfemale.invalid&&weightfemale.touched">  Weight Female Is Required.  </div>
+        </div>
+ </div>
+    
+ <div class="row form-group">
+        <div class="col-sm-6">
+            <label class="site_label" for="inputdefault">Height Male In Cm<span style="color:red">*</span></label>
+            <input class="form-control site_input ng-pristine ng-untouched ng-not-empty ng-valid 
+            ng-valid-required"  name="ofn" required="" type="number" [ngModelOptions]="{standalone: true}" #heightmale="ngModel" placeholder="Height Male" [(ngModel)]="updatebreeds.height_male" >
+            <!-- <div *ngIf="heightmale.invalid && isValidFormSubmitted != null && !isValidFormSubmitted" [ngClass] = "'error'"> 
+                Height Male Is Required. 
+                </div> -->
+                <div class="form-control-feedback" *ngIf="heightmale.invalid&&heightmale.touched">  Height Male Is Required.  </div>
+        </div>
+        <div class="col-sm-6">
+             <label class="site_label" for="inputdefault">Height Female In Cm<span style="color:red">*</span></label>
+             <input class="form-control site_input ng-pristine ng-untouched ng-not-empty ng-valid 
+             ng-valid-required"  name="ofn" required=""  type="number" [ngModelOptions]="{standalone: true}"  #heightfemale="ngModel" placeholder="Height Female" [(ngModel)]="updatebreeds.height_female">
+             <!-- <div *ngIf="heightfemale.invalid && isValidFormSubmitted != null && !isValidFormSubmitted" [ngClass] = "'error'"> 
+                Height Female Is Required. 
+                </div> -->
+       
+                <div class="form-control-feedback" *ngIf="heightfemale.invalid&&heightfemale.touched"> Height Female Is Required.  </div>
+                
+        </div>
+ </div>
+         
+     <div class="row form-group">
+        <div class="col-sm-6">
+            <label class="site_label" for="inputdefault">Stride Length In Cm<span style="color:red">*</span></label>
+            <input class="form-control site_input ng-pristine ng-untouched ng-not-empty ng-valid 
+            ng-valid-required"  name="ofn" required=""  type="number" [ngModelOptions]="{standalone: true}" #stridelength="ngModel" placeholder="Stride Length" [(ngModel)]="updatebreeds.stride_length">
+            <!-- <div *ngIf="stridelength.invalid && isValidFormSubmitted != null && !isValidFormSubmitted" [ngClass] = "'error'"> 
+                Stride Length Is Required. 
+                </div> -->
+                <div class="form-control-feedback" *ngIf="stridelength.invalid&&stridelength.touched"> Stride Length Is Required.   </div>
+       
+        </div>
+        <div class="col-sm-6">
+             <label class="site_label" for="inputdefault">Move Per Mile<span style="color:red">*</span></label>
+             <input class="form-control site_input ng-pristine ng-untouched ng-not-empty ng-valid 
+             ng-valid-required"   name="ofn" required="" type="number" [ngModelOptions]="{standalone: true}"  #movepermile="ngModel" placeholder="Move Per Mile" [(ngModel)]="updatebreeds.move_per_mile">
+             <!-- <div *ngIf="movepermile.invalid && isValidFormSubmitted != null && !isValidFormSubmitted" [ngClass] = "'error'"> 
+                Move Per Mile Is Required. 
+                </div> -->
+                <div class="form-control-feedback" *ngIf="movepermile.invalid&&movepermile.touched"> Move Per Mile Is Required.</div>
+                
+       
+            </div>
+     </div>
+         
+     <div class="row form-group">
+        <div class="col-sm-6">
+            <label class="site_label" for="inputdefault">Active Minute<span style="color:red">*</span></label>
+            <input class="form-control site_input ng-pristine ng-untouched ng-not-empty ng-valid 
+            ng-valid-required"  name="ofn" required="" type="number" [ngModelOptions]="{standalone: true}"  #activeminute="ngModel" placeholder="Active Minute" [(ngModel)]="updatebreeds.active_minute">
+            <!-- <div *ngIf="activeminute.invalid && isValidFormSubmitted != null && !isValidFormSubmitted" [ngClass] = "'error'"> 
+                Active Minute Is Required. 
+                </div> -->
+                <div class="form-control-feedback" *ngIf="activeminute.invalid&&activeminute.touched"> Active Minute Is Required. </div>
+                
+        </div>
+        <div class="col-sm-6">
+             <label class="site_label" for="inputdefault">Temperament<span style="color:red">*</span></label>
+             <input class="form-control site_input ng-pristine ng-untouched ng-not-empty ng-valid 
+             ng-valid-required"  name="ofn" required=""  placeholder="Temperament" [ngModelOptions]="{standalone: true}"  #temperament="ngModel" [(ngModel)]="updatebreeds.temperament" >
+             <!-- <div *ngIf="temperament.invalid && isValidFormSubmitted != null && !isValidFormSubmitted" [ngClass] = "'error'"> 
+                Temperament Is Required. 
+                </div> -->
+                <div class="form-control-feedback" *ngIf="temperament.invalid&&temperament.touched">Temperament Is Required. </div>
+          </div>
+    </div>
+    
+     <div class="row form-group">
+        <div class="col-sm-6">
+            <label class="site_label" for="inputdefault">Manual Activity Target<span style="color:red">*</span></label>
+            <input class="form-control site_input ng-pristine ng-untouched ng-not-empty ng-valid 
+            ng-valid-required"  name="ofn" required=""  type="number" placeholder="Manual Activity Target" [ngModelOptions]="{standalone: true}"  #manualactivity="ngModel" [(ngModel)]="updatebreeds.manual_activity" >
+            <!-- <div *ngIf="manualactivity.invalid && isValidFormSubmitted != null && !isValidFormSubmitted" [ngClass] = "'error'"> 
+                Manual Activity Is Required. 
+                </div> -->
+                <div class="form-control-feedback" *ngIf="manualactivity.invalid&&manualactivity.touched"> Manual Activity Is Required. </div>
+       
+        </div>
+        <div class="col-sm-6">
+             <label class="site_label" for="inputdefault">Target<span style="color:red">*</span></label>
+             <input class="form-control site_input ng-pristine ng-untouched ng-not-empty ng-valid 
+             ng-valid-required"  name="ofn" required="" type="text" placeholder="Breed Categories" [ngModelOptions]="{standalone: true}"  #target="ngModel" [(ngModel)]="updatebreeds.target">
+             <!-- <div *ngIf="target.invalid && isValidFormSubmitted != null && !isValidFormSubmitted" [ngClass] = "'error'"> 
+                Target Is Required. 
+                </div> -->
+                <div class="form-control-feedback" *ngIf="target.invalid&&target.touched">  Target Is Required. </div>
+            </div>
+     </div>
+    
+     <div class="row form-group">
+        
+        <div class="col-sm-6">
+             <label class="site_label" for="inputdefault">Image<span style="color:red">*</span></label>
+              <input  type="file" name="file" accept=".jpg,.jpeg,.png" id="fUpload" [ngModelOptions]="{standalone: true}"  class="upload_file form-control site_input ng-pristine ng-untouched ng-not-empty ng-valid 
+              ng-valid-required"  required=""   [(ngModel)]="updatebreeds.imagenew" id="filePicker" (change)="handleFileSelect($event)" #fileInput>
+              <img *ngIf="imagenew!=''" class="upload_update_breeds" [src]= "imagenew">
+              <img  *ngIf="imageHide != true" [src]= "updatebreeds.image_path" width = "60px" (change)="imagechange()" >
+              <!-- <div *ngIf="image_path.invalid && isValidFormSubmitted != null && !isValidFormSubmitted" [ngClass] = "'error'"> 
+                field required. 
+                </div> -->
+                <!-- <div class="form-control-feedback" *ngIf="imagenew.invalid&&imagenew.touched">   Field Is Required.  </div> -->
+       
+            </div>
+     </div>
+     
+    <button type="button"  (click) ="onSubmit(updatebreeds)" [disabled]="breedName.invalid||breedcategoryid.invalid||origin.invalid||lifespan.invalid||weightmale.invalid ||weightfemale.invalid||heightmale.invalid||heightfemale.invalid||stridelength.invalid||movepermile.invalid||activeminute.invalid||temperament.invalid||manualactivity.invalid||target.invalid"  class="btn btn-default site_btn ">Update</button>
+    <!-- [routerLink] = "['/components/view-breeds/']"  -->
+</form>
+
+
+</div>
+
+<!--Update Breeds Start -->
